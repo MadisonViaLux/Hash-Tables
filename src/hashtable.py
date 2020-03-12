@@ -51,7 +51,10 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        i = self._hash_mod(key)
+        next_pair = LinkedPair(key, value)
+        next_pair.next = self.storage[i]
+        self.storage[i] = next_pair
 
 
 
@@ -63,7 +66,11 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        i = self._hash_mod(key)
+        if self.storage[i] is None:
+            print("There is no queen of england, https://www.youtube.com/watch?v=2A3HLWtHYWA") #There is no Key
+        remove = self.storage[i]
+        self.storage[i] = remove.next
 
 
     def retrieve(self, key):
@@ -74,7 +81,13 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        i = self._hash_mod(key)
+        this_pair = self.storage[i]
+        while this_pair:
+            if this_pair.key == key:
+                return this_pair.value
+            this_pair = this_pair.next
+        return None
 
 
     def resize(self):
@@ -84,7 +97,8 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        for storage in range(self.capacity):
+            self.storage.append(None)
 
 
 
@@ -107,7 +121,7 @@ if __name__ == "__main__":
     ht.resize()
     new_capacity = len(ht.storage)
 
-    print(f"\nResized from {old_capacity} to {new_capacity}.\n")
+    print(f"\nResized from {old_capacity}(old) to {new_capacity}(new).\n")
 
     # Test if data intact after resizing
     print(ht.retrieve("line_1"))
@@ -115,3 +129,4 @@ if __name__ == "__main__":
     print(ht.retrieve("line_3"))
 
     print("")
+
